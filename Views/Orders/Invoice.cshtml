@@ -1,0 +1,43 @@
+﻿@model GameShop3.Models.Order
+@{
+    ViewBag.Title = "Račun #" + Model.Id;
+}
+
+<h1 style="text-align:center;">GameShop</h1>
+<hr />
+
+<h3>Kupljena igra:</h3>
+<table style="width:100%; border-collapse: collapse;" border="1">
+    <thead>
+        <tr>
+            <th style="padding:5px;">Naziv igre</th>
+            <th style="padding:5px;">Cijena (€)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td style="padding:5px;">@item.GameTitle</td>
+                <td style="padding:5px;">@item.Price.ToString("0.00")</td>
+            </tr>
+        }
+        <tr>
+            <td style="padding:5px;"><b>Ukupno</b></td>
+            <td style="padding:5px;"><b>@Model.Total.ToString("0.00") €</b></td>
+        </tr>
+    </tbody>
+</table>
+
+<p><b>Korisnik:</b> @Model.UserEmail</p>
+<p><b>Datum:</b> @Model.CreatedAt.ToLocalTime()</p>
+
+<hr />
+<p>Hvala na suradnji!</p>
+
+<p>
+    @Html.ActionLink("Preuzmi PDF", "DownloadPdf", "Orders", new { id = Model.Id }, new { @class = "btn btn-primary" })
+</p>
+<p>
+    @Html.ActionLink("Natrag na moje račune", "MyInvoices", "Orders", null, new { @class = "btn btn-secondary" })
+</p>

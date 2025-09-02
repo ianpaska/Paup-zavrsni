@@ -1,0 +1,22 @@
+﻿@model List<GameShop3.Models.Game>
+@{
+    ViewBag.Title = "Početna";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*  background *@
+<div class="Background"></div>
+
+@* Banner / Pozadina u gornjem dijelu stranice *@
+<div class="home-banner" style="background-image:url('@Url.Content("~/Content/Images/background.jpg")');">
+    <div class="banner-text">
+        <h1>Dobrodošli u GameShop3!</h1>
+        <p>Najbolje igre po najboljoj cijeni</p>
+    </div>
+</div>
+
+<div class="container">
+    <h2>@ViewBag.Title</h2>
+    <p>@ViewBag.TitleText</p>
+    <p>@Html.ActionLink("Pregled svih igara", "Index", "Games", null, new { @class = "btn btn-primary" })</p>
+</div>

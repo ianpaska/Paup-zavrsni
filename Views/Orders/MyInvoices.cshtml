@@ -1,0 +1,24 @@
+﻿@model List<GameShop3.Models.Order>
+@{
+    ViewBag.Title = "Računi";
+}
+<h2>@ViewBag.Title</h2>
+
+@if (TempData["Msg"] != null)
+{<div class="alert alert-info">@TempData["Msg"]</div>}
+
+<table class="table">
+    <tr><th>#</th><th>Datum</th><th>Stavke</th><th>Ukupno</th><th></th></tr>
+    @foreach (var o in Model)
+    {
+        <tr>
+            <td>@o.Id</td>
+            <td>@o.CreatedAt.ToLocalTime()</td>
+            <td>@string.Join(", ", o.Items.Select(i => i.GameTitle))</td>
+            <td>@o.Total.ToString("0.00") €</td>
+            <td>
+                @Html.ActionLink("Detalji", "Invoice", "Orders", new { id = o.Id }, null)
+            </td>
+        </tr>
+    }
+</table>

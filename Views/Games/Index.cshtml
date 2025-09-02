@@ -1,0 +1,83 @@
+﻿@model List<GameShop3.Models.Game>
+@using GameShop3.Models
+@{
+    ViewBag.Title = "Igre";
+}
+
+@*  background *@
+<div class="Background" style="
+     position:fixed;
+     top:0;
+     left:0;
+     width:100%;
+     height:100%;
+     background-image:url('@Url.Content("~/Content/Images/background.jpg")');
+     background-size:cover;
+     background-position:center;
+     background-repeat:no-repeat;
+     z-index:-1;">
+</div>
+
+<div class="container" style="
+     background-color:rgba(255,255,255,0.9);
+     padding:20px;
+     border-radius:5px;
+     margin:30px auto;
+     max-width:1200px;">
+    <h2>Igre</h2>
+
+    @using (Html.BeginForm("Index", "Games", FormMethod.Get))
+    {
+        <input type="text" name="search" placeholder="Pretraži..." value="@ViewBag.Search" />
+        <select name="category">
+            <option value="">Kategorija</option>
+            @foreach (Category c in ViewBag.Categories as List<Category>)
+            {
+                <option value="@c" @(ViewBag.SelectedCategory != null && (Category)ViewBag.SelectedCategory == c ? "selected" : "")>@c</option>
+            }
+        </select>
+        <select name="platform">
+            <option value="">Platforma</option>
+            @foreach (Platform p in ViewBag.Platforms as List<Platform>)
+            {
+                <option value="@p" @(ViewBag.SelectedPlatform != null && (Platform)ViewBag.SelectedPlatform == p ? "selected" : "")>@p</option>
+            }
+        </select>
+        <select name="sort">
+            <option value="">Sortiraj</option>
+            <option value="price_asc" @(ViewBag.Sort == "price_asc" ? "selected" : "")>Cijena ↑</option>
+            <option value="price_desc" @(ViewBag.Sort == "price_desc" ? "selected" : "")>Cijena ↓</option>
+            <option value="popularity" @(ViewBag.Sort == "popularity" ? "selected" : "")>Popularnost</option>
+            <option value="rating" @(ViewBag.Sort == "rating" ? "selected" : "")>Ocjena</option>
+        </select>
+        <button type="submit">Primijeni</button>
+    }
+
+    <table class="table">
+        <tr>
+            <th>Slika</th>
+            <th>Naziv</th>
+            <th>Kategorija</th>
+            <th>Platforme</th>
+            <th>Cijena</th>
+            <th>Prosj. ocjena</th>
+            <th></th>
+        </tr>
+        @foreach (var g in Model)
+        {
+            <tr>
+                <td>
+                    <img src="@Url.Content("~/Content/Images/Games/" + g.Title + ".jpg")"
+                         alt="@g.Title"
+                         style="width:150px; height:100px; object-fit:cover; border-radius:5px;" />
+                </td>
+                <td>@g.Title</td>
+                <td>@g.Category</td>
+                <td>@string.Join(", ", g.Platforms)</td>
+                <td>@g.Price.ToString("0.00") €</td>
+                <td>@g.AverageRating(GameShop3.Models.Store.Comments).ToString("0.0")</td>
+                <td>@Html.ActionLink("Detalji", "Details", "Games", new { id = g.Id }, null)</td>
+            </tr>
+        }
+    </table>
+</div>

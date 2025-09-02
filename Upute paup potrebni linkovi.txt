@@ -1,0 +1,32 @@
+Uputstva za sto je gdje
+Gameshop3-App_data-Gameshop3
+		  -Gameshop3_log
+	  -App_Start -BundleConfig.cs
+		     -FilterConfig.cs
+		     -IdentitySeed.cs
+		     -RouteConfig.cs
+	 -Content -images
+		  -site.cs
+	-Controlers-AcountController.cs
+		   -GaemController.cs
+		   -HomeController.cs
+		   -OrderController.cs
+	-Models-AccountViewModel
+		-Comments.cs
+		-Enums.cs
+		-IdentityModels.cs
+		-Order.cs
+		-store.cs
+	-Views-Account-login.cshtml
+			-Register.cshtml
+		-Games-details.cshmtl
+			-Indeks.cshtml
+		-Home-Indeks.cshmtl
+		-Orders- Invoice.cshtml
+			-MyInvoice.cshtml
+		-Shared-_Layout.cshtml
+		
+
+
+
+	
